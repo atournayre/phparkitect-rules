@@ -22,8 +22,8 @@ use Arkitect\CLI\Config;
 return static function (Config $config): void {
     $classSet = ClassSet::fromDir(__DIR__ . '/src');
     
-    $rules = \Atournayre\PHPArkitect\Rules\Set::symfonyApiPlatform();
-    $rules[] = \Atournayre\PHPArkitect\Rules\Rule::uniformNamingForService();
+    $rules = \Atournayre\PHPArkitect\Sets::symfonyApiPlatform();
+    $rules[] = \Atournayre\PHPArkitect\Rule::uniformNamingForService();
   
     $config
         ->add($classSet, ...$rules);
