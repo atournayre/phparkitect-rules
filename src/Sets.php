@@ -4,7 +4,7 @@ namespace Atournayre\PHPArkitect;
 
 use Webmozart\Assert\Assert;
 
-class Set
+class Sets
 {
     public static function symfonyApiPlatform(): array
     {
