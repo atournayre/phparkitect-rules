@@ -2,6 +2,7 @@
 
 namespace Atournayre\PHPArkitect;
 
+use Arkitect\Rules\ArchRule;
 use Webmozart\Assert\Assert;
 
 class Sets
@@ -59,7 +60,7 @@ class Sets
 
     public static function buildArrayOfRules(array $rules): array
     {
-        Assert::allIsInstanceOf($rules, \Arkitect\Rules\Rule::class, 'The object passed in parameter is not an ArchRule.');
+        Assert::allIsInstanceOf($rules, ArchRule::class, 'The object passed in parameter is not an ArchRule.');
         return $rules;
     }
 
