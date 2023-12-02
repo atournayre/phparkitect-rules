@@ -10,7 +10,7 @@ composer require --dev atournayre/phparkitect-rules
 
 ## Usage
 
-Rules must be used un phparkitect configuration file.
+Rules must be used in a phparkitect configuration file.
 
 Here is an example of how to use it:
 
@@ -29,6 +29,8 @@ return static function (Config $config): void {
         ->add($classSet, ...$rules);
 };
 ```
+You can use sets or rules individually.
+
 
 ## Contributing
 
