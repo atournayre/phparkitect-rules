@@ -1,0 +1,44 @@
+{
+  "name": "atournayre/phparkitect-rules",
+  "type": "library",
+  "description": "Provides additional rules for phparkitect/phparkitect for Symfony and API Platform",
+  "keywords": [
+    "phparkitect",
+    "phparkitect-rules"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "atournayre",
+      "email": "aurelien.tournayre@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "phparkitect/phparkitect": "0.3.25",
+    "webmozart/assert": "^1.11"
+  },
+  "config": {
+    "platform": {
+      "php": "8.1"
+    },
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Atournayre\\PHPArkitect\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Atournayre\\PHPArkitect\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10.44",
+    "phpstan/phpstan-deprecation-rules": "^1.1.4",
+    "phpstan/phpstan-strict-rules": "^1.5.2",
+    "phpunit/phpunit": "^10.5"
+  }
+}
