@@ -24,18 +24,15 @@ class Rule
 
     public static function all(): array
     {
-        $reflection = new \ReflectionClass(self::class);
-        $methods = $reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PUBLIC);
-        $rules = [];
+        $reflection = new \ReflectionClass(static::class);
+        $methods = $reflection->getMethods(\ReflectionMethod::IS_STATIC);
         $methods = array_filter($methods, function ($method) {
-            $methodName = $method->getName();
-            return !in_array($methodName, ['all', 'uniformNaming']);
+            return $method->isPublic() && $method->getName() !== 'all';
         });
 
-        foreach ($methods as $method) {
-            $methodName = $method->getName();
-            $rules[] = self::$methodName();
-        }
-        return $rules;
+        return array_map(
+            fn ($method) => static::{$method->getName()}(),
+            $methods
+        );
     }
 }
