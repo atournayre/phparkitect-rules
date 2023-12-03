@@ -22,6 +22,7 @@ final class MiscRule extends Rule
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Collection'))
             ->should(new DependsOnlyOnTheseNamespaces(
+                'App\Contracts',
                 'App\Entity',
                 'Carbon\Carbon',
                 'DateTimeInterface',
@@ -30,6 +31,7 @@ final class MiscRule extends Rule
                 'Doctrine\Common\Collections\ArrayCollection',
                 'Doctrine\Common\Collections\ReadableCollection',
                 'Doctrine\ORM\PersistentCollection',
+                'Symfony\Contracts',
                 Assert::class,
             ))
             ->because('Collection should only depend on Entity, Carbon, DateTimeInterface, Doctrine Collection, Doctrine Criteria, Doctrine ReadableCollection, Doctrine PersistentCollection and Webmozart Assert');
@@ -122,7 +124,7 @@ final class MiscRule extends Rule
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Command'))
             ->should(new DependsOnTheseNamespace('Symfony\Component\Stopwatch\Stopwatch'))
-            ->because('We use Stopwatch to measure time of command execution');
+            ->because('we use Stopwatch to measure time of command execution');
     }
 
     public static function uniformNamingForContracts(): ArchRule
@@ -139,6 +141,7 @@ final class MiscRule extends Rule
                 'App\DTO',
                 'App\VO',
                 'DateTimeInterface',
+                'Symfony\Component\DependencyInjection\Attribute',
             ))
             ->because('Interface should only depend on Entity, DTO, VO and DateTimeInterface');
     }
@@ -229,6 +232,7 @@ final class MiscRule extends Rule
                 'App\VO',
                 'DateTimeInterface',
                 'RuntimeException',
+                'Symfony\Component\Uid\Uuid',
             ))
             ->because('Exception should only depend on Entity, Enum, VO, DateTimeInterface and RuntimeException');
     }
