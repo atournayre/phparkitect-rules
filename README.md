@@ -18,15 +18,26 @@ Here is an example of how to use it:
 // phparkitect.php
 use Arkitect\ClassSet;
 use Arkitect\CLI\Config;
+use Atournayre\PHPArkitect\Rule\LogRule;
+use Atournayre\PHPArkitect\Rule\MiscRule;
+use Atournayre\PHPArkitect\Set\Sets;
 
 return static function (Config $config): void {
     $classSet = ClassSet::fromDir(__DIR__ . '/src');
-    
-    $rules = \Atournayre\PHPArkitect\Sets::symfonyApiPlatform();
-    $rules[] = \Atournayre\PHPArkitect\Rule::uniformNamingForService();
-  
-    $config
-        ->add($classSet, ...$rules);
+
+    // Add all rules for API Platform    
+    $config->add($classSet, ...Sets::apiPlatform());
+    // Add all rules for Symfony
+    $config->add($classSet, ...Sets::symfony());
+    // Add subset of rules for Doctrine
+    $config->add($classSet, ...Sets::doctrineUniformNaming());
+    // Add specific rules
+    $config->add(
+        $classSet,
+        LogRule::listenerMustBeLoggable(),
+        MiscRule::dtoMustNotEndWithDto(),
+        MiscRule::traits(),
+    );
 };
 ```
 You can use sets or rules individually.
