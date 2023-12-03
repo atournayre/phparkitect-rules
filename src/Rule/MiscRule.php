@@ -266,4 +266,12 @@ final class MiscRule extends Rule
             ->should(new IsTrait())
             ->because('we want to be sure that there are only traits in a specific namespace');
     }
+
+    public static function contracts(): ArchRule
+    {
+        return self::allClasses()
+            ->that(new HaveNameMatching('*Interface'))
+            ->should(new ResideInOneOfTheseNamespaces('App\Contracts'))
+            ->because('we want to be sure that there are only interfaces in a specific namespace');
+    }
 }
