@@ -27,11 +27,14 @@ class Rule
         $reflection = new \ReflectionClass(self::class);
         $methods = $reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PUBLIC);
         $rules = [];
+        $methods = array_filter($methods, function ($method) {
+            $methodName = $method->getName();
+            return !in_array($methodName, ['all', 'uniformNaming']);
+        });
+
         foreach ($methods as $method) {
             $methodName = $method->getName();
-            if ($methodName !== 'all') {
-                $rules[] = self::$methodName();
-            }
+            $rules[] = self::$methodName();
         }
         return $rules;
     }
