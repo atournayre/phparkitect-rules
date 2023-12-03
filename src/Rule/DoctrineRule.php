@@ -19,10 +19,19 @@ final class DoctrineRule extends Rule
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Listener'))
             ->should(new DependsOnlyOnTheseNamespaces(
+                'Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener',
                 'Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener',
+                'Doctrine\ORM\Event',
+                'Doctrine\ORM\Events',
+                'App\Decorator',
+                'App\DTO',
                 'App\Entity',
+                'App\Enum',
                 'App\Service',
+                'App\Repository',
+                'App\VO',
                 'Symfony\Component\Clock\ClockInterface',
+                'Webmozart\Assert\Assert',
             ))
             ->because('Listener should have dependency on AsEntityListener attribute from Doctrine');
     }

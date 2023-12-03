@@ -4,6 +4,8 @@ namespace Atournayre\PHPArkitect\Rule;
 
 use Arkitect\Expression\ForClasses\Implement;
 use Arkitect\Expression\ForClasses\IsFinal;
+use Arkitect\Expression\ForClasses\IsNotInterface;
+use Arkitect\Expression\ForClasses\IsNotTrait;
 use Arkitect\Expression\ForClasses\ResideInOneOfTheseNamespaces;
 use Arkitect\Rules\DSL\ArchRule;
 
@@ -42,22 +44,26 @@ final class ApiPlaformRule extends Rule
     {
         return self::allClasses()
             ->that(new Implement('ApiPlatform\State\ProviderInterface'))
+            ->andThat(new IsNotInterface())
+            ->andThat(new IsNotTrait())
             ->should(new ResideInOneOfTheseNamespaces(
                 'App\State',
                 'App\State\Provider',
             ))
-            ->because('it\'s an ApiPlatform convention');
+            ->because('it\'s an ApiPlatform convention for Providers');
     }
 
     public static function classImplementingProcessorInterfaceShouldResideInAppState(): ArchRule
     {
         return self::allClasses()
             ->that(new Implement('ApiPlatform\State\ProcessorInterface'))
+            ->andThat(new IsNotInterface())
+            ->andThat(new IsNotTrait())
             ->should(new ResideInOneOfTheseNamespaces(
                 'App\State',
                 'App\State\Processor',
             ))
-            ->because('it\'s an ApiPlatform convention');
+            ->because('it\'s an ApiPlatform convention for Processors');
     }
 
     public static function providersAndProcessorsShouldBeFinal(): ArchRule

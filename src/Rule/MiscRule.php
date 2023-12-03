@@ -12,7 +12,7 @@ use Arkitect\Expression\ForClasses\NotDependsOnTheseNamespaces;
 use Arkitect\Expression\ForClasses\NotHaveNameMatching;
 use Arkitect\Expression\ForClasses\ResideInOneOfTheseNamespaces;
 use Arkitect\Rules\DSL\ArchRule;
-use Atournayre\PHPArkitect\Expression\ForClasses\DependsOnTheseNamespaces;
+use Atournayre\PHPArkitect\Expression\ForClasses\DependsOnTheseNamespace;
 use Webmozart\Assert\Assert;
 
 final class MiscRule extends Rule
@@ -121,7 +121,7 @@ final class MiscRule extends Rule
     {
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Command'))
-            ->should(new DependsOnTheseNamespaces('Symfony\Component\Stopwatch\Stopwatch'))
+            ->should(new DependsOnTheseNamespace('Symfony\Component\Stopwatch\Stopwatch'))
             ->because('We use Stopwatch to measure time of command execution');
     }
 
@@ -253,7 +253,7 @@ final class MiscRule extends Rule
     {
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Repository'))
-            ->should(new DependsOnTheseNamespaces(
+            ->should(new DependsOnTheseNamespace(
                 'Atournayre\Component\Doctrine\Traits',
             ))
             ->because('Repository should have dependency on Atournayre\Component\Doctrine\Traits, to avoid code duplication and provide useful methods. If not installed, use composer require atournayre/doctrine-component.');

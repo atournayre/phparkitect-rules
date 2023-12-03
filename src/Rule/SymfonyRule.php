@@ -8,7 +8,6 @@ use Arkitect\Expression\ForClasses\HaveAttribute;
 use Arkitect\Expression\ForClasses\IsFinal;
 use Arkitect\Expression\ForClasses\ResideInOneOfTheseNamespaces;
 use Arkitect\Rules\DSL\ArchRule;
-use Atournayre\PHPArkitect\Expression\ForClasses\DependsOnTheseNamespaces;
 
 final class SymfonyRule extends Rule
 {
