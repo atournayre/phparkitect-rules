@@ -159,7 +159,7 @@ class Sets
     {
         return self::buildArrayOfRules([
             SymfonyRule::uniformNamingForController(),
-            SymfonyRule::controllerMustUseSymfonRouteAttribute(),
+            SymfonyRule::controllerMustUseSymfonyRouteAttribute(),
             SymfonyRule::controllerDependencies(),
         ]);
     }
@@ -177,7 +177,7 @@ class Sets
         return self::buildArrayOfRules([
             SymfonyRule::uniformNamingForFormType(),
             SymfonyRule::formMustExtendSymfonyAbstractType(),
-            SymfonyRule::formTypesShoudResideInAppFormType(),
+            SymfonyRule::formTypesShouldResideInAppFormType(),
             SymfonyRule::formTypeMustBeFinal(),
         ]);
     }

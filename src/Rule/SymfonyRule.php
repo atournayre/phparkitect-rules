@@ -28,7 +28,7 @@ final class SymfonyRule extends Rule
     {
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Command'))
-            ->should(new HaveAttribute('AsCommand'))
+            ->should(new HaveAttribute('Symfony\Component\Console\Attribute\AsCommand'))
             ->because('Command should have dependency on AsCommand attribute from Symfony Console');
     }
 
@@ -37,11 +37,11 @@ final class SymfonyRule extends Rule
         return self::uniformNaming('Controller');
     }
 
-    public static function controllerMustUseSymfonRouteAttribute(): ArchRule
+    public static function controllerMustUseSymfonyRouteAttribute(): ArchRule
     {
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Controller'))
-            ->should(new HaveAttribute('Route'))
+            ->should(new HaveAttribute('Symfony\Component\Routing\Annotation\Route'))
             ->because('Controller should have dependency on Route attribute from Symfony Routing');
     }
 
@@ -53,12 +53,14 @@ final class SymfonyRule extends Rule
                 'App\Entity',
                 'App\Form',
                 'App\Service',
+                'Psr\Log\LoggerInterface',
                 'Symfony\Bundle\FrameworkBundle\Controller\AbstractController',
                 'Symfony\Component\HttpFoundation\JsonResponse',
                 'Symfony\Component\HttpFoundation\RedirectResponse',
                 'Symfony\Component\HttpFoundation\Request',
                 'Symfony\Component\HttpFoundation\Response',
                 'Symfony\Component\Security\Http\Attribute\IsGranted',
+                'Symfony\Component\Routing\RouterInterface',
             ))
             ->because('Controller should have dependency on AbstractController, Response, Request, RedirectResponse, JsonResponse, IsGranted attribute from Symfony Security, Entity, Form and Service');
     }
@@ -68,7 +70,9 @@ final class SymfonyRule extends Rule
         return self::allClasses()
             ->that(new ResideInOneOfTheseNamespaces('App\Event'))
             ->should(new DependsOnlyOnTheseNamespaces(
+                'App\DTO',
                 'App\Entity',
+                'App\VO',
                 'Symfony\Contracts\EventDispatcher\Event',
             ))
             ->because('Event should depends only on Entity and Symfony Event');
@@ -82,7 +86,7 @@ final class SymfonyRule extends Rule
             ->because('Form should extend Symfony Form AbstractType');
     }
 
-    public static function formTypesShoudResideInAppFormType(): ArchRule
+    public static function formTypesShouldResideInAppFormType(): ArchRule
     {
         return self::allClasses()
             ->that(new Extend('Symfony\Component\Form\AbstractType'))
@@ -131,6 +135,7 @@ final class SymfonyRule extends Rule
                 'App\Entity',
                 'App\Service',
                 'App\Repository',
+                'Symfony\Bundle\SecurityBundle\Security',
                 'Symfony\Component\HttpFoundation',
                 'Symfony\Component\Routing',
                 'Symfony\Component\Security',
