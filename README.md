@@ -18,26 +18,32 @@ Here is an example of how to use it:
 // phparkitect.php
 use Arkitect\ClassSet;
 use Arkitect\CLI\Config;
-use Atournayre\PHPArkitect\Rule\LogRule;
-use Atournayre\PHPArkitect\Rule\MiscRule;
-use Atournayre\PHPArkitect\Set\Sets;
+use Arkitect\Expression\ForClasses\IsFinal;
+use Arkitect\Expression\ForClasses\ResideInOneOfTheseNamespaces;
+use Arkitect\Rules\Rule;
+use Atournayre\PHPArkitect\Builder\RulesBuilder;
+use Atournayre\PHPArkitect\Rules;
+use Atournayre\PHPArkitect\Set;
 
 return static function (Config $config): void {
     $classSet = ClassSet::fromDir(__DIR__ . '/src');
 
-    // Add all rules for API Platform    
-    $config->add($classSet, ...Sets::apiPlatform());
-    // Add all rules for Symfony
-    $config->add($classSet, ...Sets::symfony());
-    // Add subset of rules for Doctrine
-    $config->add($classSet, ...Sets::doctrineUniformNaming());
-    // Add specific rules
-    $config->add(
-        $classSet,
-        LogRule::listenerMustBeLoggable(),
-        MiscRule::dtoMustNotEndWithDto(),
-        MiscRule::traits(),
-    );
+    $rules = RulesBuilder::create
+        ->add(new ListenerMustBeLoggableLog)
+        // Add all rules for Symfony
+        ->set(Sets::symfony())
+        // Add subset of rules for Doctrine
+        ->set(Sets::doctrineUniformNaming())
+        // Add regular rules
+        ->add(
+            Rule::allClasses()
+                ->that(new ResideInOneOfTheseNamespaces('App'))
+                ->should(new IsFinal())
+                ->because('All classes in App namespace must be final')
+        )
+        ->getRules(); 
+
+    $config->add($classSet, $rules);
 };
 ```
 You can use sets or rules individually.
