@@ -23,9 +23,9 @@ final class RuleBuilder
         return new self();
     }
 
-    public function add(RulesInterface $rule): self
+    public function add(RulesInterface|ArchRule $rule): self
     {
-        $this->rules[] = $this->buildArchRule($rule);
+        $this->rules[] = $rule instanceof ArchRule ? $rule : $this->buildArchRule($rule);
         return $this;
     }
 

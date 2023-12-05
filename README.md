@@ -21,9 +21,9 @@ use Arkitect\CLI\Config;
 use Arkitect\Expression\ForClasses\IsFinal;
 use Arkitect\Expression\ForClasses\ResideInOneOfTheseNamespaces;
 use Arkitect\Rules\Rule;
-use Atournayre\PHPArkitect\Builder\RulesBuilder;
-use Atournayre\PHPArkitect\Rules;
-use Atournayre\PHPArkitect\Set;
+use Atournayre\PHPArkitect\Builder\RuleBuilder;
+use Atournayre\PHPArkitect\Rules\ListenerMustBeLoggableLog;
+use Atournayre\PHPArkitect\Set\Sets;
 
 return static function (Config $config): void {
     $classSet = ClassSet::fromDir(__DIR__ . '/src');
@@ -31,7 +31,7 @@ return static function (Config $config): void {
     $rules = RulesBuilder::create
         ->add(new ListenerMustBeLoggableLog)
         // Add all rules for Symfony
-        ->set(Sets::symfony())
+        ->set(Sets::symfonyCommand())
         // Add subset of rules for Doctrine
         ->set(Sets::doctrineUniformNaming())
         // Add regular rules
@@ -41,9 +41,9 @@ return static function (Config $config): void {
                 ->should(new IsFinal())
                 ->because('All classes in App namespace must be final')
         )
-        ->getRules(); 
+        ->rules();
 
-    $config->add($classSet, $rules);
+    $config->add($classSet, ...$rules);
 };
 ```
 You can use sets or rules individually.
