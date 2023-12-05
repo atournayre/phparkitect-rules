@@ -30,9 +30,9 @@ return static function (Config $config): void {
 
     $rules = RulesBuilder::create
         ->add(new ListenerMustBeLoggableLog)
-        // Add all rules for Symfony
+        // Add rules for Symfony Command
         ->set(Sets::symfonyCommand())
-        // Add subset of rules for Doctrine
+        // Add rules for Doctrine Naming
         ->set(Sets::doctrineUniformNaming())
         // Add regular rules
         ->add(
